@@ -1,0 +1,31 @@
+{
+
+  "name": "image-conversion-api",
+
+  "version": "1.0.0",
+
+  "description": "Node.js Express API to convert an incoming request image URL into binary",
+
+  "main": "index.js",
+
+  "scripts": {
+
+    "start": "node --experimental-modules index.js"
+
+  },
+
+  "dependencies": {
+
+    "axios": "^0.24.0",
+
+    "cors": "^2.8.5",
+
+    "express": "^4.17.1",
+
+    "node-fetch": "^3.3.1",
+
+    "stream": "^0.0.2"
+
+  }
+
+}
