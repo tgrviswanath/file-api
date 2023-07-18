@@ -185,7 +185,7 @@ app.post('/convert', (req, res) => {
     const file = Buffer.from(buffer, 'binary');
 console.log("file", file)
       formData.append('screens', file, 'image.jpg');
-      formData.append('token', token);
+      formData.append('fileType', "Issue");
 console.log("token",token)
        console.log("formdata",formData )
       // Make the API request with the form data
