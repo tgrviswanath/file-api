@@ -69,26 +69,12 @@ app.use(express.json());
 
 
 // ---------------3------------------
-app.post('/convert', (req, res) => {
+app.post('/convert', async (req, res) => {
 const imageUrl = req.body.url;
 
 if (!imageUrl) {
 return res.status(400).json({ error: 'Image URL is required.' });
 }
-
-// https.get(imageUrl, response => {
-// let data = Buffer.alloc(0);
-// response.on('data', chunk => {
-// data = Buffer.concat([data, chunk]);
-// });
-// response.on('end', () => {
-// res.send({data: data});
-// });
-// }).on('error', error => {
-// res.status(500).json({ error: 'Error fetching the image.' });
-// });
-// });
-
    try {
     const response = await fetch(imageUrl);
     const blob = await response.blob();
