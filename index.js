@@ -182,9 +182,12 @@ app.post('/convert', (req, res) => {
     })
     .then(buffer => {
       // const file = new Blob([buffer], { type: 'image/jpeg' });
-    const file = Buffer.from(buffer, 'binary');
-console.log("file", file)
-      formData.append('screens', file, 'image.jpg');
+    // const file = Buffer.from(buffer, 'binary');
+      const base64Data = Buffer.from(buffer).toString('base64');
+      // console.log("file", file)
+      // formData.append('screens', file, 'image.jpg');
+              formData.append('screens', Buffer.from(base64Data, 'base64'), 'image.jpg');
+
       formData.append('fileType', "Issue");
 console.log("token",token)
        console.log("formdata",formData )
