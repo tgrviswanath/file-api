@@ -138,8 +138,8 @@ app.post('/convert', async (req, res) => {
        const buffer = await response.buffer();
        const base64Data = Buffer.from(buffer).toString('base64');
 
-       const formData = new FormData();
-       formData.append('file', Buffer.from(base64Data, 'base64'), 'image.jpg');
+       // const formData = new FormData();
+       // formData.append('file', Buffer.from(base64Data, 'base64'), 'image.jpg');
 
        // const uploadResponse = await fetch('https://example.com/upload', {
        //   method: 'POST',
@@ -151,7 +151,7 @@ app.post('/convert', async (req, res) => {
        // }
 
        // const uploadResult = await uploadResponse.json();
-       res.send({data: formData});
+       res.send({data: base64Data});
      } catch (error) {
        console.error(error);
        res.status(500).send('Error uploading file');
