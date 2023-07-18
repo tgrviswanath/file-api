@@ -7,7 +7,7 @@ const { Readable } = require('stream');
 
 const https = require('https');
 
-import {fetch} from 'node-fetch';
+import fetch from 'node-fetch';
 
  const app = express();
 
