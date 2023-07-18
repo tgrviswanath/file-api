@@ -104,7 +104,7 @@ app.post('/convert', async (req, res) => {
     if (!response.ok) {
       throw new Error('Failed to fetch image');
     }
-     const buffer = await response.buffer();
+     const buffer = await response.arrayBuffer();
     const blob = new Blob([buffer], { type: response.headers.get('content-type') });
      res.send({ data: blob });
   } catch (error) {
