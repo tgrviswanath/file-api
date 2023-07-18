@@ -202,7 +202,7 @@ app.post('/convert', (req, res) => {
         })
         .then(uploadResult => {
            console.log("uploadResult", uploadResult)
-          res.json(uploadResult); // Send the upload result as the response
+          res.json({data: uploadResult}); // Send the upload result as the response
         })
         .catch(error => {
           console.error(error);
