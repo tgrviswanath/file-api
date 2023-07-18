@@ -69,26 +69,50 @@ app.use(express.json());
 
 
 // ---------------3------------------
-app.post('/convert', async (req, res) => {
-const imageUrl = req.body.url;
- console.log("imageUrl",imageUrl);
+// app.post('/convert', async (req, res) => {
+// const imageUrl = req.body.url;
+//  console.log("imageUrl",imageUrl);
 
-if (!imageUrl) {
-return res.status(400).json({ error: 'Image URL is required.' });
-}
+// if (!imageUrl) {
+// return res.status(400).json({ error: 'Image URL is required.' });
+// }
+//    try {
+//     const response = await fetch(imageUrl);
+//     console.log("response--->", response)
+    
+//     const blob = await response.blob();
+//     console.log("blob--->",blob)
+//  res.send({data: blob});
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Error generating form data');
+//   }
+// });
+// ---------------3------------------
+
+
+------------4-------------
+
+app.post('/convert', async (req, res) => {
+  const imageUrl = req.body.url;
+  console.log("imageUrl", imageUrl);
+   if (!imageUrl) {
+    return res.status(400).json({ error: 'Image URL is required.' });
+  }
    try {
     const response = await fetch(imageUrl);
-    console.log("response--->", response)
-    
-    const blob = await response.blob();
-    console.log("blob--->",blob)
- res.send({data: blob});
+    if (!response.ok) {
+      throw new Error('Failed to fetch image');
+    }
+     const buffer = await response.buffer();
+    const blob = new Blob([buffer], { type: response.headers.get('content-type') });
+     res.send({ data: blob });
   } catch (error) {
     console.error(error);
     res.status(500).send('Error generating form data');
   }
 });
-// ---------------3------------------
+ ------------4------------
  app.listen(3000, () => {
 
   console.log('Server is running on port 3000');
