@@ -101,12 +101,14 @@ app.post('/convert', async (req, res) => {
   }
    try {
     const response = await fetch(imageUrl);
+    console.log("response",response)
     if (!response.ok) {
       throw new Error('Failed to fetch image');
     }
      const buffer = await response.arrayBuffer();
-    const blob = new Blob([buffer], { type: response.headers.get('content-type') });
-     res.send({ data: blob });
+    console.log("buffer", buffer)
+    // const blob = new Blob([buffer], { type: response.headers.get('content-type') });
+     res.send({ data: buffer });
   } catch (error) {
     console.error(error);
     res.status(500).send('Error generating form data');
