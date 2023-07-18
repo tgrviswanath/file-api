@@ -9,6 +9,8 @@ import express from 'express';
 
 import fetch from 'node-fetch';
 
+   import FormData from 'form-data';
+
  const app = express();
 
 app.use(express.json());
@@ -91,33 +93,72 @@ app.use(express.json());
 // ---------------3------------------
 
 
-// ------------4-------------
+// ------------4----------its working---
 
-app.post('/convert', async (req, res) => {
-  const imageUrl = req.body.url;
-  console.log("imageUrl", imageUrl);
-   if (!imageUrl) {
-    return res.status(400).json({ error: 'Image URL is required.' });
-  }
-   try {
-    const response = await fetch(imageUrl);
-    console.log("response",response)
-    if (!response.ok) {
-      throw new Error('Failed to fetch image');
-    }
-     const buffer = await response.arrayBuffer();
-    console.log("buffer", buffer)
-    // const blob = new Blob([buffer], { type: response.headers.get('content-type') });
-    // const base64Data = buffer.toString('base64');
-    const base64Data = Buffer.from(buffer).toString('base64');
+// app.post('/convert', async (req, res) => {
+//   const imageUrl = req.body.url;
+//   console.log("imageUrl", imageUrl);
+//    if (!imageUrl) {
+//     return res.status(400).json({ error: 'Image URL is required.' });
+//   }
+//    try {
+//     const response = await fetch(imageUrl);
+//     console.log("response",response)
+//     if (!response.ok) {
+//       throw new Error('Failed to fetch image');
+//     }
+//      const buffer = await response.arrayBuffer();
+//     console.log("buffer", buffer)
+//     // const blob = new Blob([buffer], { type: response.headers.get('content-type') });
+//     // const base64Data = buffer.toString('base64');
+//     const base64Data = Buffer.from(buffer).toString('base64');
 
-     res.send({ data: base64Data });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error generating form data');
-  }
-});
+//      res.send({ data: base64Data });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Error generating form data');
+//   }
+// });
  // ------------4------------
+
+------------------5---------------
+app.post('/convert', async (req, res) => {
+     const imageUrl = req.body.url;
+     console.log("imageUrl", imageUrl);
+     if (!imageUrl) {
+       return res.status(400).json({ error: 'Image URL is required.' });
+     }
+
+     try {
+       const response = await fetch(imageUrl);
+       if (!response.ok) {
+         throw new Error('Failed to fetch image');
+       }
+
+       const buffer = await response.buffer();
+       const base64Data = Buffer.from(buffer).toString('base64');
+
+       const formData = new FormData();
+       formData.append('file', Buffer.from(base64Data, 'base64'), 'image.jpg');
+
+       // const uploadResponse = await fetch('https://example.com/upload', {
+       //   method: 'POST',
+       //   body: formData,
+       // });
+
+       // if (!uploadResponse.ok) {
+       //   throw new Error('Failed to upload file');
+       // }
+
+       // const uploadResult = await uploadResponse.json();
+       res.send({data: formData});
+     } catch (error) {
+       console.error(error);
+       res.status(500).send('Error uploading file');
+     }
+   });
+
+ ---------------5-------------
  app.listen(3000, () => {
 
   console.log('Server is running on port 3000');
