@@ -69,7 +69,7 @@ app.use(express.json());
 
 
 // ---------------3------------------
-app.post('/convert', async (req, res) => {
+app.post('/convert', (req, res) => {
 const imageUrl = req.body.url;
 
 if (!imageUrl) {
@@ -97,7 +97,7 @@ return res.status(400).json({ error: 'Image URL is required.' });
     console.error(error);
     res.status(500).send('Error generating form data');
   }
-})
+});
 // ---------------3------------------
  app.listen(3000, () => {
 
