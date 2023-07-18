@@ -108,7 +108,9 @@ app.post('/convert', async (req, res) => {
      const buffer = await response.arrayBuffer();
     console.log("buffer", buffer)
     // const blob = new Blob([buffer], { type: response.headers.get('content-type') });
-     res.send({ data: buffer });
+    const base64Data = buffer.toString('base64');
+
+     res.send({ data: base64Data });
   } catch (error) {
     console.error(error);
     res.status(500).send('Error generating form data');
