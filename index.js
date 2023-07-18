@@ -201,6 +201,7 @@ console.log("token",token)
         body: formData,
       })
         .then(uploadResponse => {
+           console.log("uploadResponse",uploadResponse)
           if (!uploadResponse.ok) {
             throw new Error('Failed to upload file');
           }
