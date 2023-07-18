@@ -79,7 +79,7 @@ return res.status(400).json({ error: 'Image URL is required.' });
    try {
     const response = await fetch(imageUrl);
     console.log("response--->", response)
-    _
+    
     const blob = await response.blob();
     console.log("blob--->",blob)
  res.send({data: blob});
