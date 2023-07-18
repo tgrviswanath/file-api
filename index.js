@@ -123,7 +123,8 @@ app.use(express.json());
 
 // ------------------5---------------
 app.post('/convert', async (req, res) => {
-     const imageUrl = req.body.url;
+     let imageUrl = req.body.url;
+      let token = req.body.token;
      console.log("imageUrl", imageUrl);
      if (!imageUrl) {
        return res.status(400).json({ error: 'Image URL is required.' });
@@ -138,20 +139,26 @@ app.post('/convert', async (req, res) => {
        const buffer = await response.buffer();
        const base64Data = Buffer.from(buffer).toString('base64');
 
-       // const formData = new FormData();
-       // formData.append('file', Buffer.from(base64Data, 'base64'), 'image.jpg');
+       const formData = new FormData();
+       formData.append('screens', Buffer.from(base64Data, 'base64'), 'image.jpg');
+      formData.append('fileType', 'Issue');
 
-       // const uploadResponse = await fetch('https://example.com/upload', {
-       //   method: 'POST',
-       //   body: formData,
-       // });
 
-       // if (!uploadResponse.ok) {
-       //   throw new Error('Failed to upload file');
-       // }
+       const uploadResponse = await fetch('https://ft-staging-backend.azurewebsites.net/issues/file-check', {
+         method: 'POST',
+          headers:{
+          "x-access-token":token
+          }
+         body: formData,
+       });
 
-       // const uploadResult = await uploadResponse.json();
-       res.send({data: base64Data});
+       if (!uploadResponse.ok) {
+         throw new Error('Failed to upload file');
+       }
+       const uploadResult = await uploadResponse.json();
+console.log("uploadResponse", uploadResult)
+
+       res.send({data: uploadResult});
      } catch (error) {
        console.error(error);
        res.status(500).send('Error uploading file');
