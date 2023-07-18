@@ -7,6 +7,7 @@
   "description": "Node.js Express API to convert an incoming request image URL into binary",
 
   "main": "index.js",
+  "type":"module",
 
   "scripts": {
 
