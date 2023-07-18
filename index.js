@@ -71,13 +71,17 @@ app.use(express.json());
 // ---------------3------------------
 app.post('/convert', async (req, res) => {
 const imageUrl = req.body.url;
+ console.log("imageUrl",imageUrl);
 
 if (!imageUrl) {
 return res.status(400).json({ error: 'Image URL is required.' });
 }
    try {
     const response = await fetch(imageUrl);
+    console.log("response--->", response)
+    _
     const blob = await response.blob();
+    console.log("blob--->",blob)
  res.send({data: blob});
   } catch (error) {
     console.error(error);
