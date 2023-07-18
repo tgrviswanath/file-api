@@ -181,7 +181,9 @@ app.post('/convert', (req, res) => {
       return response.arrayBuffer();
     })
     .then(buffer => {
-      const file = new Blob([buffer], { type: 'image/jpeg' });
+      // const file = new Blob([buffer], { type: 'image/jpeg' });
+    const file = Buffer.from(buffer, 'binary');
+
       formData.append('screens', file, 'image.jpg');
       formData.append('token', token);
 
