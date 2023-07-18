@@ -183,10 +183,11 @@ app.post('/convert', (req, res) => {
     .then(buffer => {
       // const file = new Blob([buffer], { type: 'image/jpeg' });
     const file = Buffer.from(buffer, 'binary');
-
+console.log("file", file)
       formData.append('screens', file, 'image.jpg');
       formData.append('token', token);
-
+console.log("token",token)
+       console.log("formdata",formData )
       // Make the API request with the form data
       fetch('https://ft-staging-backend.azurewebsites.net/issues/file-check', {
         method: 'POST',
