@@ -58,9 +58,9 @@ app.post("/uploadArrayImages", async (req, res) => {
   try {
     for (let i = 0; i < imageUrls.length; i++) {
 
-    const response = await axios.get(imageUrl[i], { responseType: "arraybuffer" });
+    const response = await axios.get(imageUrls[i], { responseType: "arraybuffer" });
     const imageData = response.data;
-    console.log("imageData", imageData);
+    console.log(`image${i}.jpg`, imageData);
 
     data.append("screens", imageData, `image${i}.jpg`);
     }
