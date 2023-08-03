@@ -54,7 +54,8 @@ app.post("/uploadArrayImages", async (req, res) => {
 
   let data = new FormData();
   data.append("fileType", "Issue");
-
+  console.log("imageUrls", imageUrls)
+console.log("imageUrls typeof ", typeof imageUrls)
   try {
     for (let i = 0; i < imageUrls.length; i++) {
 
