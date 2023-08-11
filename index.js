@@ -51,7 +51,12 @@ app.post("/convert", async (req, res) => {
 app.post("/uploadArrayImages", async (req, res) => {
   let imageUrls = req.body.urls; // Assuming imageUrl is sent in the request body
   if(imageUrls && (typeof imageUrls === 'string')){
-    imageUrls = JSON.parse(imageUrls);
+    // imageUrls = JSON.parse(imageUrls);
+    imageUrls = imageUrls.replace(/'/g, "");
+    console.log("replace", imageUrls);
+    imageUrls = imageUrls.split(",");
+    console.log(imageUrls.length);
+    console.log("image", imageUrls);
   }
   const token = req.body.token; // Assuming token is sent in the request body
 
